@@ -1,0 +1,19 @@
+#!/usr/bin/env python3
+
+import argparse
+import logging
+import socket
+import sys
+
+parser = argparse.ArgumentParser()
+parser.add_argument("port", help="port to check", type=int)
+args = parser.parse_args()
+
+for ip in sys.stdin:
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    result = s.connect((ip, args.port))
+    s.close()
+    if result == 0:
+        logging.info("%d is listening on %s" % args.port, ip)
+    else:
+        logging.info("%s is NOT listening on %s") % (args.port, ip)
