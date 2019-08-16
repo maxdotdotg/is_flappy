@@ -32,11 +32,17 @@ for host in sys.stdin:
     successful_check = tcp_check(host, args.port)
     if successful_check == 5:
         print(
-            "service using port {} on host {} is reporting ok".format(args.port, host)
+            "service using port {} on host {} is reporting ok".format(
+                args.port, host.strip()
+            )
         )
     elif successful_check == 0:
         print(
-            "service using port {} on host {} is NOT REPORTING".format(args.port, host)
+            "service using port {} on host {} is NOT REPORTING".format(
+                args.port, host.strip()
+            )
         )
     else:
-        print("service using port {} on host {} is flappy".format(args.port, host))
+        print(
+            "service using port {} on host {} is flappy".format(args.port, host.strip)
+        )
