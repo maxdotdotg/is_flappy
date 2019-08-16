@@ -6,7 +6,6 @@ if 5 checks fail, report that $HOST is down
 """
 
 import argparse
-import logging
 import socket
 import sys
 from time import sleep
@@ -20,9 +19,11 @@ parser.add_argument(
     type=int,
     default=5,
 )
+parser.add_argument("hosts", nargs="?", default=sys.stdin, help="new-line delimited list of hosts read from stdin")
 args = parser.parse_args()
 
 # set up argparse vars
+hosts = args.hosts
 port = args.port
 seconds = args.seconds
 
@@ -46,7 +47,7 @@ def tcp_check(host, port, seconds):
     return count
 
 
-for host in sys.stdin:
+for host in hosts:
     successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
         print(
