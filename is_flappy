@@ -11,22 +11,32 @@ args = parser.parse_args()
 
 
 def tcp_check(host, port):
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        result = s.connect_ex((host, port))
-        s.close()
-        if result == 0:
-            print("{port} is listening on {host}".format(port=port, host=host))
-        else:
-            print("{port} is NOT listening on {host}".format(port=port, host=host))
-    except socket.gaierror:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        result = s.connect_ex((host.strip(), port))
-        s.close()
-        if result == 0:
-            print("{port} is listening on {host}".format(port=port, host=host))
-        else:
-            print("{port} is NOT listening on {host}".format(port=port, host=host))
+    count = 0
+    for i in range(5):
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = s.connect_ex((host, port))
+            s.close()
+            if result == 0:
+                count += 1
+        except socket.gaierror:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = s.connect_ex((host.strip(), port))
+            s.close()
+            if result == 0:
+                count += 1
+    return count
+
 
 for host in sys.stdin:
-    tcp_check(host, args.port)
+    successful_check = tcp_check(host, args.port)
+    if successful_check == 5:
+        print(
+            "service using port {} on host {} is reporting ok".format(args.port, host)
+        )
+    elif successful_check == 0:
+        print(
+            "service using port {} on host {} is NOT REPORTING".format(args.port, host)
+        )
+    else:
+        print("service using port {} on host {} is flappy".format(args.port, host))
