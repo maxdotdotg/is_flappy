@@ -13,7 +13,13 @@ from time import sleep
 
 parser = argparse.ArgumentParser()
 parser.add_argument("port", help="port to check", type=int)
-parser.add_argument("-s", "--seconds", help="number of seconds between checks (default is 5s)", type=int, default=5)
+parser.add_argument(
+    "-s",
+    "--seconds",
+    help="number of seconds between checks (default is 5s)",
+    type=int,
+    default=5,
+)
 args = parser.parse_args()
 
 # set up argparse vars
@@ -41,20 +47,14 @@ def tcp_check(host, port, seconds):
 
 
 for host in sys.stdin:
-    successful_check = tcp_check(host, args.port, seconds)
+    successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
         print(
             "service using port {} on host {} is reporting ok".format(
-                args.port, host.strip()
+                port, host.strip()
             )
         )
     elif successful_check == 0:
-        print(
-            "service using port {} on host {} is DOWN".format(
-                args.port, host.strip()
-            )
-        )
+        print("service using port {} on host {} is DOWN".format(port, host.strip()))
     else:
-        print(
-            "service using port {} on host {} is flappy".format(args.port, host.strip())
-        )
+        print("service using port {} on host {} is flappy".format(port, host.strip()))
