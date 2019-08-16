@@ -23,7 +23,10 @@ parser.add_argument("hosts", nargs="?", default=sys.stdin, help="new-line delimi
 args = parser.parse_args()
 
 # set up argparse vars
-hosts = args.hosts
+if args.hosts:
+    hosts = args.hosts
+else:
+    hosts = sys.stdin
 port = args.port
 seconds = args.seconds
 
