@@ -11,7 +11,7 @@ import socket
 import sys
 from time import sleep
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description="check if a TCP connection to $PORT on $HOST can be established")
 parser.add_argument("port", help="port to check", type=int)
 parser.add_argument(
     "-s",
