@@ -10,7 +10,9 @@ import socket
 import sys
 from time import sleep
 
-parser = argparse.ArgumentParser(description="check if a TCP connection to $PORT on $HOST can be established")
+parser = argparse.ArgumentParser(
+    description="check if a TCP connection to $PORT on $HOST can be established"
+)
 parser.add_argument("port", help="port to check", type=int)
 parser.add_argument(
     "-s",
@@ -19,7 +21,12 @@ parser.add_argument(
     type=int,
     default=5,
 )
-parser.add_argument("hosts", nargs="?", default=sys.stdin, help="new-line delimited list of hosts read from stdin")
+parser.add_argument(
+    "hosts",
+    nargs="?",
+    default=sys.stdin,
+    help="new-line delimited list of hosts read from stdin",
+)
 args = parser.parse_args()
 
 # set up argparse vars
