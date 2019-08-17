@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 check if a TCP connection to $PORT on $HOST can be established
