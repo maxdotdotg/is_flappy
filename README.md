@@ -43,7 +43,7 @@ This script is compatible with python 2 and python 3.
 
     As a script, this can be deployed to a target node via configuration management/wget/curl/scp/etc. I'd use the house tools to deliver the artifact. If it was to be a service, I'd recommend writing a systemd unit file in addition, which would handle logging and lifecycle management. Alternatively, the script could be run via crontab as well.
 
-    The biggest complexity that comes to mind is how the list of hosts to check would be provided and managed over time. If this were to run on a VM, the list of hosts could be maintained via Chef/Ansible/Puppet/similar. If it were deployed to a functions-as-a-service platform or as a container, I can see the list of hosts being stored offsite in an object storage platform (s3/blob store/etc) and provided at runtime, or via a volume mounted specifically to provide this file.
+    The biggest complexity that comes to mind is how the list of hosts to check would be provided and managed over time. If this were to run on a VM, the list of hosts could be maintained via Chef/Ansible/Puppet/similar. If it were deployed to a functions-as-a-service platform or as a container, I can see the list of hosts being stored offsite in an object storage platform (s3/blob store/etc) and provided at runtime, or via a volume mounted specifically to provide this file. A future version could also take a list of hostsvia an HTTP endpoint, run the checks, and return the results.
 
 * How would you work with developers to resolve any systems issues?
 
