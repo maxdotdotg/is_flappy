@@ -16,8 +16,9 @@ host = "localhost"
 port = 9000
 seconds = 5
 
+
 def tcp_check(host, port, seconds):
-    # run tcp check on $HOST 
+    # run tcp check on $HOST
     count = 0
     for i in range(5):
         try:
@@ -35,13 +36,14 @@ def tcp_check(host, port, seconds):
         sleep(seconds)
     return count
 
+
 @app.route("/check/<host>")
 def check(host):
     # execute 5 tcp checks and report
     status = None
     successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
-        status = "OK",
+        status = "OK"
     elif successful_check == 0:
         status = "DOWN"
     else:
@@ -53,5 +55,5 @@ def check(host):
         "status": status,
         "message": "service using port {} on host {} is reporting {}".format(
             port, host.strip(), status
-            )
+        ),
     }
