@@ -38,14 +38,20 @@ def tcp_check(host, port, seconds):
 @app.route("/check/<host>")
 def check(host):
     # execute 5 tcp checks and report
+    status = None
     successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
-        return(
-            "service using port {} on host {} is reporting ok".format(
-                port, host.strip()
-            )
-        )
+        status = "OK",
     elif successful_check == 0:
-        return("service using port {} on host {} is DOWN".format(port, host.strip()))
+        status = "DOWN"
     else:
-        return("service using port {} on host {} is flappy".format(port, host.strip()))
+        status = "FLAPPY"
+
+    return {
+        "host": host.strip(),
+        "port": port,
+        "status": status,
+        "message": "service using port {} on host {} is reporting {}".format(
+            port, host.strip(), status
+            )
+    }
