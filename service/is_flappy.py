@@ -5,16 +5,19 @@ check if a TCP connection to $PORT on $HOST can be established
 if 5 checks fail, report that $HOST is down
 """
 
+from flask import Flask
 import socket
 import sys
 from time import sleep
 
 
-host
-port
-seconds
+app = Flask(__name__)
+host = "localhost"
+port = 9000
+seconds = 5
 
 def tcp_check(host, port, seconds):
+    # run tcp check on $HOST 
     count = 0
     for i in range(5):
         try:
@@ -32,16 +35,17 @@ def tcp_check(host, port, seconds):
         sleep(seconds)
     return count
 
-
-for host in hosts:
+@app.route("/check/<host>")
+def check(host):
+    # execute 5 tcp checks and report
     successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
-        print(
+        return(
             "service using port {} on host {} is reporting ok".format(
                 port, host.strip()
             )
         )
     elif successful_check == 0:
-        print("service using port {} on host {} is DOWN".format(port, host.strip()))
+        return("service using port {} on host {} is DOWN".format(port, host.strip()))
     else:
-        print("service using port {} on host {} is flappy".format(port, host.strip()))
+        return("service using port {} on host {} is flappy".format(port, host.strip()))
