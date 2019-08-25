@@ -1,0 +1,47 @@
+#!/usr/bin/env python
+
+"""
+check if a TCP connection to $PORT on $HOST can be established
+if 5 checks fail, report that $HOST is down
+"""
+
+import socket
+import sys
+from time import sleep
+
+
+host
+port
+seconds
+
+def tcp_check(host, port, seconds):
+    count = 0
+    for i in range(5):
+        try:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = s.connect_ex((host, port))
+            s.close()
+            if result == 0:
+                count += 1
+        except socket.gaierror:
+            s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = s.connect_ex((host.strip(), port))
+            s.close()
+            if result == 0:
+                count += 1
+        sleep(seconds)
+    return count
+
+
+for host in hosts:
+    successful_check = tcp_check(host, port, seconds)
+    if successful_check == 5:
+        print(
+            "service using port {} on host {} is reporting ok".format(
+                port, host.strip()
+            )
+        )
+    elif successful_check == 0:
+        print("service using port {} on host {} is DOWN".format(port, host.strip()))
+    else:
+        print("service using port {} on host {} is flappy".format(port, host.strip()))
