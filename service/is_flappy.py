@@ -5,7 +5,7 @@ check if a TCP connection to $PORT on $HOST can be established
 if 5 checks fail, report that $HOST is down
 """
 
-from flask import Flask
+from flask import Flask, request, jsonify
 import socket
 import sys
 from time import sleep
@@ -57,3 +57,7 @@ def check(host):
             port, host.strip(), status
         ),
     }
+
+@app.route("/json", methods=["POST"])
+def print_list():
+    return request
