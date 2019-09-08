@@ -12,12 +12,9 @@ from time import sleep
 
 
 app = Flask(__name__)
-host = "localhost"
-port = 9000
-seconds = 5
 
 
-def tcp_check(host, port, seconds):
+def tcp_check(host, port, seconds=5):
     # run tcp check on $HOST
     count = 0
     for i in range(5):
