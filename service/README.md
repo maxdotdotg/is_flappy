@@ -1,6 +1,9 @@
 # is_flappy
 Check a list of hosts to see if a service is listening on a given port.
 
+## Installation
+Install dependencies using pip: `pip install -r requirements.txt`
+
 ## Usage
 This app exposes two endponts, `/check` and `/json`.
 
@@ -54,5 +57,3 @@ $ curl -s -X POST localhost:9001/json -H "Content-Type: application/json" -d @po
 
 
 
-## Dependancies
-Install dependencies using pip: `pip install -r requirements.txt --user`
