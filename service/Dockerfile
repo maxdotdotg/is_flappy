@@ -15,4 +15,4 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 EXPOSE 9001
 
 # Run is_flappy when the container launches
-CMD ["gunicorn", "-w", "4", "-b", "127.0.0.1:9001", "is_flappy:app", "--log-level", "debug"]
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:9001", "is_flappy:app", "--log-level", "debug"]
