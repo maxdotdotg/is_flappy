@@ -19,6 +19,7 @@ app = Flask(__name__)
 gunicorn_logger = logging.getLogger("gunicorn.error")
 app.logger.handlers = gunicorn_logger.handlers
 
+
 def tcp_check(host, port, seconds):
     # run tcp check on $HOST
     # return success count as int
@@ -31,7 +32,9 @@ def tcp_check(host, port, seconds):
             app.logger.debug("closing socket connection to {}".format(host))
             s.close()
             if result == 0:
-                app.logger.debug("result of socket connection is 0, incrementing success count")
+                app.logger.debug(
+                    "result of socket connection is 0, incrementing success count"
+                )
                 count += 1
         except socket.gaierror:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -40,7 +43,9 @@ def tcp_check(host, port, seconds):
             app.logger.debug("closing socket_ex connection to {}".format(host))
             s.close()
             if result == 0:
-                app.logger.debug("result of socket_ex connection is 0, incrementing success count")
+                app.logger.debug(
+                    "result of socket_ex connection is 0, incrementing success count"
+                )
                 count += 1
         sleep(seconds)
     app.logger.debug("success count for connecting to {} is {}".format(host, count))
@@ -55,13 +60,25 @@ def check(host, port=80, seconds=2):
     successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
         status = "OK"
-        app.logger.debug("success count for {} equals {}, status is {}".format(host, successful_check, status))
+        app.logger.debug(
+            "success count for {} equals {}, status is {}".format(
+                host, successful_check, status
+            )
+        )
     elif successful_check == 0:
         status = "DOWN"
-        app.logger.debug("success count for {} equals {}, status is {}".format(host, successful_check, status))
+        app.logger.debug(
+            "success count for {} equals {}, status is {}".format(
+                host, successful_check, status
+            )
+        )
     else:
         status = "FLAPPY"
-        app.logger.debug("success count for {} equals {}, status is {}".format(host, successful_check, status))
+        app.logger.debug(
+            "success count for {} equals {}, status is {}".format(
+                host, successful_check, status
+            )
+        )
 
     return {
         "host": host.strip(),
@@ -80,7 +97,6 @@ def check_list():
     if not request.json:
         app.logger.debug("received body that wasn't JSON: {}".format(request))
         abort(404)
-
 
     results = [check(hosts, request.json["port"]) for hosts in request.json["hosts"]]
     app.logger.debug("results: {}".format(results))
