@@ -7,7 +7,6 @@ if 5 checks fail, report that $HOST is down
 
 from flask import Flask, request, jsonify
 import socket
-import sys
 from time import sleep
 
 
@@ -36,7 +35,8 @@ def tcp_check(host, port, seconds):
 
 @app.route("/check/<host>", methods=["GET"])
 def check(host, port=80, seconds=5):
-    # execute 5 tcp checks on one host and report
+    # execute tcp checks on $HOST and report
+    # returns json
     status = None
     successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
@@ -57,7 +57,9 @@ def check(host, port=80, seconds=5):
 
 
 @app.route("/json", methods=["POST"])
-def print_list():
+def check_list():
+    # check list of hosts provided via posts
+    # returns json
     if not request.json:
         abort(404)
 
