@@ -12,6 +12,7 @@ from time import sleep
 
 
 app = Flask(__name__)
+port = 80
 
 
 def tcp_check(host, port, seconds=5):
@@ -38,7 +39,7 @@ def tcp_check(host, port, seconds=5):
 def check(host):
     # execute 5 tcp checks on one host and report
     status = None
-    successful_check = tcp_check(host, port, seconds)
+    successful_check = tcp_check(host, port)
     if successful_check == 5:
         status = "OK"
     elif successful_check == 0:
@@ -59,4 +60,5 @@ def check(host):
 def print_list():
     if not request.json:
         abort(404)
-    return request.json
+    results = check(request.json["hosts"][0])
+    return jsonify(results)
