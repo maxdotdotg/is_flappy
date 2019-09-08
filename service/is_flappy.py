@@ -37,9 +37,9 @@ def tcp_check(host, port, seconds):
     return count
 
 
-@app.route("/check/<host>")
+@app.route("/check/<host>", methods=["GET"])
 def check(host):
-    # execute 5 tcp checks and report
+    # execute 5 tcp checks on one host and report
     status = None
     successful_check = tcp_check(host, port, seconds)
     if successful_check == 5:
@@ -60,4 +60,6 @@ def check(host):
 
 @app.route("/json", methods=["POST"])
 def print_list():
-    return request
+    if not request.json:
+        abort(404)
+    return request.json
