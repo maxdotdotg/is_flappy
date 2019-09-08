@@ -34,7 +34,7 @@ def tcp_check(host, port, seconds):
 
 
 @app.route("/check/<host>", methods=["GET"])
-def check(host, port=80, seconds=5):
+def check(host, port=80, seconds=2):
     # execute tcp checks on $HOST and report
     # returns json
     status = None
@@ -66,5 +66,6 @@ def check_list():
     results = [check(hosts, request.json["port"]) for hosts in request.json["hosts"]]
     return jsonify({"results": results})
 
+
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=9001)
+    app.run(host="0.0.0.0", port=9001)
