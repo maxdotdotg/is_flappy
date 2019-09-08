@@ -1,7 +1,8 @@
 # is_flappy
+Check a list of hosts to see if a service is listening on a given port.
 
 ## Usage
-For CLI usage:
+To run via CLI:
 ```
 cli
 ├── is_flappy
@@ -9,3 +10,9 @@ cli
 ```
 
 To run as a service:
+```
+service
+├── is_flappy.py
+├── README.md
+└── requirements.txt
+```
