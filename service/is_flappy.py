@@ -63,3 +63,6 @@ def print_list():
 
     results = [check(hosts, request.json["port"]) for hosts in request.json["hosts"]]
     return jsonify({"results": results})
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=9001)
