@@ -55,10 +55,11 @@ def check(host, port=80, seconds=5):
         ),
     }
 
+
 @app.route("/json", methods=["POST"])
 def print_list():
     if not request.json:
         abort(404)
 
-    results = [check(hosts) for hosts in request.json["hosts"]]
-    return jsonify(results)
+    results = [check(hosts, request.json["port"]) for hosts in request.json["hosts"]]
+    return jsonify({"results": results})
