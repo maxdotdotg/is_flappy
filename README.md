@@ -12,6 +12,7 @@ cli
 To run as a service:
 ```
 service
+├── Dockerfile
 ├── is_flappy.py
 ├── README.md
 └── requirements.txt
