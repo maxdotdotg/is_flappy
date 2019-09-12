@@ -33,8 +33,11 @@ def tcp_check(host, port, seconds):
             s.close()
             if result == 0:
                 app.logger.debug(
-                    "result of socket connection is 0, incrementing success count"
+                    "result of socket connection to {} is 0, incrementing success count".format(
+                        host
+                    )
                 )
+                app.logger.info("connection to {} succeeded".format(host))
                 count += 1
         except socket.gaierror:
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -44,8 +47,11 @@ def tcp_check(host, port, seconds):
             s.close()
             if result == 0:
                 app.logger.debug(
-                    "result of socket_ex connection is 0, incrementing success count"
+                    "result of socket_ex connection to {} is 0, incrementing success count".format(
+                        host
+                    )
                 )
+                app.logger.info("connection to {} succeeded".format(host))
                 count += 1
         sleep(seconds)
     app.logger.debug("success count for connecting to {} is {}".format(host, count))
@@ -65,6 +71,7 @@ def check(host, port=80, seconds=2):
                 host, successful_check, status
             )
         )
+        app.logger.info("host {} is {}".format(host, status))
     elif successful_check == 0:
         status = "DOWN"
         app.logger.debug(
@@ -72,6 +79,7 @@ def check(host, port=80, seconds=2):
                 host, successful_check, status
             )
         )
+        app.logger.info("host {} is {}".format(host, status))
     else:
         status = "FLAPPY"
         app.logger.debug(
@@ -79,6 +87,7 @@ def check(host, port=80, seconds=2):
                 host, successful_check, status
             )
         )
+        app.logger.info("host {} is {}".format(host, status))
 
     return {
         "host": host.strip(),
