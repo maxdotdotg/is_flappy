@@ -54,6 +54,9 @@ $ curl -s -X POST localhost:9001/json -H "Content-Type: application/json" -d @po
 
 ```
 
-
-
+Alternately, build and run as a docker container using the included `Dockerfile`. Please note that the `Dockerfile` runs the app in DEBUG mode.
+```
+sudo docker build . -t is_flappy
+sudo docker run --name is_flappy -p 9001:9001 -d is_flappy
+```
 
