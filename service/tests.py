@@ -1,32 +1,33 @@
-import requests
 import unittest
+from json import dumps
+
 import is_flappy
 
 
 class Test_service(unittest.TestCase):
-    def setUp(self):
-        client_socket = socket(AF_INET, SOCK_STREAM)
-        client_socket.connect(("", 9001))
 
-    def tearDown(self):
-        client_socket.close()
-
-    def test1():
+    def test1(self):
         # service running on localhost should return 200
-        r = requests.get("localhost:9001/check/localhost")
-        self.assertEqual(r.status, 200)
+        test_client = is_flappy.app.test_client()
 
-    def test2():
+        r = test_client.get("/check/localhost")
+        self.assertEqual(r.status_code, 200)
+
+    def test2(self):
         # return type should always be json
-        r = requests.get("localhost:9001/check/localhost")
-        self.assertEqual(type(r.json), "dict")
+        test_client = is_flappy.app.test_client()
+        
+        r = test_client.get("/check/localhost")
+        self.assertEqual(r.is_json, True)
 
-    def test3():
-        # service should be running
-        headers = {"Content-Type": "application/json"}
+    def test3(self):
+        # check a service that is not running
+        test_client = is_flappy.app.test_client()
         payload = {"port": 9001, "hosts": ["localhost"]}
-        r = requests.post(
-            "localhost:9001/check/localhost", data=payload, headers=headers
+
+        r = test_client.post(
+            "/json", 
+            data=dumps(payload),
+            content_type="application/json"
         )
-        response = r.json()
-        self.assertEqual(response["results"][0]["status"], "OK")
+        self.assertEqual(r.json["results"][0]["status"], "DOWN")
