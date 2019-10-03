@@ -1,5 +1,6 @@
 # is_flappy
 Check a list of hosts to see if a service is listening on a given port.
+
 [![Build Status](https://travis-ci.com/maxdotdotg/is_flappy.svg?branch=master)](https://travis-ci.com/maxdotdotg/is_flappy)
 
 ## Installation
