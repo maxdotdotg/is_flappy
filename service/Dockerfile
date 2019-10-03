@@ -5,10 +5,10 @@ FROM python:3.6-slim
 RUN useradd prod -d /home/prod && mkdir /home/prod && chown -R prod.prod /home/prod
 USER prod
 
-# Set the working directory to /app
+# Set the working directory
 WORKDIR /home/prod
 
-# Copy contents into the container at /app
+# Copy contents into the container
 COPY is_flappy.py /home/prod
 COPY requirements.txt /home/prod
 
