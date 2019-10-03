@@ -60,3 +60,5 @@ sudo docker build . -t is_flappy
 sudo docker run --name is_flappy -p 9001:9001 -d is_flappy
 ```
 
+## testing
+This service can be tested using the built-in unittest module: `python -m unittest tests.py`
