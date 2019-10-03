@@ -1,7 +1,12 @@
 import unittest
 from json import dumps
 
-import is_flappy
+try:
+    import is_flappy
+except ImportError:
+    from sys import path
+    path.append("service")
+    import is_flappy
 
 
 class Test_service(unittest.TestCase):
