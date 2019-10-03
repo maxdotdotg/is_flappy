@@ -56,10 +56,10 @@ $ curl -s -X POST localhost:9001/json -H "Content-Type: application/json" -d @po
 
 ```
 
-Alternately, build and run as a docker container using the included `Dockerfile`. Please note that the `Dockerfile` runs the app in DEBUG mode.
+Alternately, build and run as a docker container using the included `Dockerfile`. When running the image, the log level defaults to DEBUG unless the environment variable `LOG_LEVEL` is set.
 ```
 sudo docker build . -t is_flappy
-sudo docker run --name is_flappy -p 9001:9001 -d is_flappy
+sudo docker run --name is_flappy -e LOG_LEVEL=INFO -p 9001:9001 -d is_flappy
 ```
 
 ## Testing

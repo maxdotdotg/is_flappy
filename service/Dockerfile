@@ -1,5 +1,6 @@
 # Use an official Python runtime as a parent image
 FROM python:3.6-slim
+ENV LOG_LEVEL debug
 
 # run as user prod
 RUN useradd prod -d /home/prod && mkdir /home/prod && chown -R prod.prod /home/prod
@@ -20,4 +21,4 @@ ENV PATH /home/prod/.local/bin
 EXPOSE 9001
 
 # Run is_flappy when the container launches
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:9001", "is_flappy:app", "--log-level", "debug"]
+CMD gunicorn -w 4 -b 0.0.0.0:9001 is_flappy:app --log-level $LOG_LEVEL
