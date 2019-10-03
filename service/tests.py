@@ -5,19 +5,14 @@ import is_flappy
 
 
 class Test_service(unittest.TestCase):
-
     def test_service_is_running(self):
-        # service running on localhost should return 200
         test_client = is_flappy.app.test_client()
-
         r = test_client.get("/check/localhost")
+
+        # service running on localhost should return 200
         self.assertEqual(r.status_code, 200)
 
-    def test_service_returns_json(self):
         # return type should always be json
-        test_client = is_flappy.app.test_client()
-        
-        r = test_client.get("/check/localhost")
         self.assertEqual(r.is_json, True)
 
     def test_check_not_running_service(self):
@@ -26,9 +21,7 @@ class Test_service(unittest.TestCase):
         payload = {"port": 9001, "hosts": ["localhost"]}
 
         r = test_client.post(
-            "/json", 
-            data=dumps(payload),
-            content_type="application/json"
+            "/json", data=dumps(payload), content_type="application/json"
         )
         self.assertEqual(r.json["results"][0]["status"], "DOWN")
 
@@ -38,9 +31,6 @@ class Test_service(unittest.TestCase):
         payload = {"port": 80, "hosts": ["www.google.com"]}
 
         r = test_client.post(
-            "/json", 
-            data=dumps(payload),
-            content_type="application/json"
+            "/json", data=dumps(payload), content_type="application/json"
         )
         self.assertEqual(r.json["results"][0]["status"], "OK")
-
