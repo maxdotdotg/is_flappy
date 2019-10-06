@@ -1,11 +1,15 @@
 pkg_name=is_flappy
 pkg_origin=maxg
-pkg_version="0.1.0"
+pkg_version="0.1.1"
 pkg_maintainer="max g<maxdotdotg@gmail.com>"
 pkg_license=("GPL-3.0")
 pkg_shasum="TODO"
 
 pkg_deps=(core/python/3.6.0)
+
+do_build() {
+  return 0
+}
 
 do_install() {
   # copy across the app plus requirements
