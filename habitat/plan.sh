@@ -7,9 +7,22 @@ pkg_shasum="TODO"
 
 pkg_deps=(core/python/3.6.0)
 
+do_download() {
+  return 0
+}
+
+do_verify() {
+  return 0
+}
+
+do_unpack() {
+  return 0
+}
+
 do_build() {
   return 0
 }
+
 
 do_install() {
   # copy across the app plus requirements
