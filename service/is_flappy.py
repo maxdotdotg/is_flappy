@@ -112,9 +112,9 @@ def check_list():
     return jsonify({"results": results})
 
 
-# bind to 9001, and set debug to True
+# bind to 9001
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=9001, debug=True)
+    app.run(host="localhost", port=9001)
 
 # use gunicorn logger when app is not run directly
 if __name__ != "__main__":
