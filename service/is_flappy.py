@@ -112,7 +112,7 @@ def check_list():
     return jsonify({"results": results})
 
 
-# bind to 9001, and set debug to True
+# bind to 9001
 if __name__ == "__main__":
     app.run(host="localhost", port=9001)
 
