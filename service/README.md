@@ -1,8 +1,6 @@
 # is_flappy
 Check a list of hosts to see if a service is listening on a given port.
 
-[![Build Status](https://travis-ci.com/maxdotdotg/is_flappy.svg?branch=master)](https://travis-ci.com/maxdotdotg/is_flappy)
-
 ## Installation
 Install dependencies using pip: `pip install -r requirements.txt`
 
@@ -63,4 +61,4 @@ sudo docker run --name is_flappy -e LOG_LEVEL=INFO -p 9001:9001 -d is_flappy
 ```
 
 ## Testing
-This service can be manually tested using the built-in unittest module: `python -m unittest tests.py`, and is currently using Travis for CI
+This service can be manually tested using the built-in unittest module: `python -m unittest tests.py`.
